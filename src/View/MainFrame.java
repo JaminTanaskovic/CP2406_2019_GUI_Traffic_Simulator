@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 
 public class MainFrame extends JPanel implements ActionListener {
 
+    private int height = 500;
+    private int width = 500;
+
     private final GamePane gamePane;
 
     // creating the frame and panel
@@ -48,6 +51,8 @@ public class MainFrame extends JPanel implements ActionListener {
     private JButton fourWayButton = new JButton("Four Way Road");
     private JButton cancelEditButton = new JButton("Close Edit Selections");
 
+    private JPanel gamePanel = new JPanel();
+
 
     public MainFrame(GamePane gamePane) {
 
@@ -73,6 +78,7 @@ public class MainFrame extends JPanel implements ActionListener {
         // Add bottom panel
         bottomPanel.setLayout(new GridLayout(1, 4));
         editPanel.setLayout(new GridLayout(4, 1));
+        gamePanel.setLayout(new GridLayout(30, 30));
 
         // Add labels to bottomPanel
         bottomPanel.add(modeLabel);
@@ -98,13 +104,16 @@ public class MainFrame extends JPanel implements ActionListener {
         bottomPanel.setBackground(Color.cyan);
         menuBar.setBackground(Color.cyan);
         editPanel.setBackground(Color.cyan);
+        gamePanel.setBackground(Color.black);
+
+        gamePanel.setSize(height, width);
 
         // Adding Components to the frame.
         frame.add(editPanel, BorderLayout.WEST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
-        frame.add(gamePane, BorderLayout.CENTER);
+        //    frame.add(gamePane, BorderLayout.CENTER);
         frame.add(menuBar, BorderLayout.NORTH);
-
+        frame.add(gamePanel, BorderLayout.CENTER);
 
         // Adding action listeners to be handled in controller
         stopSim.addActionListener(this);

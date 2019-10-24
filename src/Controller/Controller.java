@@ -102,13 +102,22 @@ public class Controller {
         });
 
         // Add straight road to game panel
-        mainFrame.straightRoadListener(e -> System.out.println(e.getActionCommand()));
+        mainFrame.straightRoadListener(e -> {
+
+            System.out.println(e.getActionCommand());
+        });
 
         // Add TJunction road to game panel
-        mainFrame.tJunctionListener(e -> System.out.println(e.getActionCommand()));
+        mainFrame.tJunctionListener(e -> {
+
+            System.out.println(e.getActionCommand());
+        });
 
         // Add Four Way road to game panel
-        mainFrame.fourWayListener(e -> System.out.println(e.getActionCommand()));
+        mainFrame.fourWayListener(e -> {
+
+            System.out.println(e.getActionCommand());
+        });
 
         // Close the edit panel
         mainFrame.cancelListener(e -> {
@@ -116,6 +125,11 @@ public class Controller {
             mainFrame.turnOffEditPanel();
             System.out.println(e.getActionCommand());
         });
+    }
+
+    public static void main(String[] args) {
+
+        Controller controller = new Controller();
     }
 
     private int getVehicleSpawn() {
