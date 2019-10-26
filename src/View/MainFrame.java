@@ -11,6 +11,7 @@ public class MainFrame extends JPanel implements ActionListener {
     private int height = 500;
     private int width = 500;
 
+
     private final GamePane gamePane;
 
     // creating the frame and panel
@@ -18,7 +19,6 @@ public class MainFrame extends JPanel implements ActionListener {
 
     // Creating the MenuBar and adding components
     private JMenuBar menuBar = new JMenuBar();
-
 
     // Creating Menu Headers
     private JMenu m1 = new JMenu("City Editing");
@@ -53,11 +53,13 @@ public class MainFrame extends JPanel implements ActionListener {
 
     private JPanel gamePanel = new JPanel();
 
-
     public MainFrame(GamePane gamePane) {
+//      public MainFrame(Grid grid) {
 
         // Accessing GamePane
         this.gamePane = gamePane;
+        //         this.grid = grid;
+
 
         // Add menu headers to main menu bar
         menuBar.add(m1);
@@ -111,9 +113,10 @@ public class MainFrame extends JPanel implements ActionListener {
         // Adding Components to the frame.
         frame.add(editPanel, BorderLayout.WEST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
-        //    frame.add(gamePane, BorderLayout.CENTER);
+        frame.add(gamePane, BorderLayout.CENTER);
         frame.add(menuBar, BorderLayout.NORTH);
-        frame.add(gamePanel, BorderLayout.CENTER);
+        //       frame.add(grid, BorderLayout.CENTER);
+//        frame.add(gamePanel, BorderLayout.CENTER);
 
         // Adding action listeners to be handled in controller
         stopSim.addActionListener(this);
@@ -139,6 +142,8 @@ public class MainFrame extends JPanel implements ActionListener {
 
         editPanel.setVisible(true);
         editPanel.setFocusable(true);
+        //       grid.setVisible(true);
+        //       grid.setFocusable(true);
         menuBar.setVisible(false);
         menuBar.setFocusable(false);
     }
@@ -147,6 +152,8 @@ public class MainFrame extends JPanel implements ActionListener {
 
         editPanel.setVisible(false);
         editPanel.setFocusable(false);
+        //       grid.setVisible(false);
+        //       grid.setFocusable(false);
         menuBar.setVisible(true);
         menuBar.setFocusable(true);
     }

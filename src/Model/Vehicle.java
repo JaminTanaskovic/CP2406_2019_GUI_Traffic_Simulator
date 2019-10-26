@@ -2,7 +2,8 @@ package Model;
 
 import java.awt.*;
 
-public abstract class Vehicle extends Shape {
+public abstract class
+Vehicle extends Shape {
     private int xDir, yDir, speed;
 
     Vehicle(int x, int y, int xDir, int yDir, int speed) {

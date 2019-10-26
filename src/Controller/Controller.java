@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.GamePane;
+import View.Grid;
 import View.MainFrame;
 
 import javax.swing.*;
@@ -43,11 +44,14 @@ public class Controller {
 
         GamePane gamePane = new GamePane(WIDTH, HEIGHT, vehicles);
         MainFrame mainFrame = new MainFrame(gamePane);
+//        Grid grid = new Grid(20,20);
+//        MainFrame mainFrame = new MainFrame(grid);
 
         // Create a new game panel
         mainFrame.setNewCityMenuListener(e -> {
 
-            gamePane.setupNewGame();
+//            gamePane.setupNewGame();
+//            grid.setVisible(true);
             System.out.println(e.getActionCommand());
         });
 
@@ -127,11 +131,6 @@ public class Controller {
         });
     }
 
-    public static void main(String[] args) {
-
-        Controller controller = new Controller();
-    }
-
     private int getVehicleSpawn() {
 
         return vehicleSpawn;
@@ -140,5 +139,14 @@ public class Controller {
     private void setVehicleSpawn(int vehicleSpawn) {
 
         this.vehicleSpawn = vehicleSpawn;
+    }
+
+    public static void main(String[] args) {
+
+        Controller controller = new Controller();
+        int rows = 20;
+        int cols = 20;
+
+        Grid grid = new Grid(rows, cols);
     }
 }

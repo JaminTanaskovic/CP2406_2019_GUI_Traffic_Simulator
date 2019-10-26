@@ -37,6 +37,7 @@ public class GamePane extends JPanel implements ActionListener {
         timer.start();
         if (timer.isRunning()) {
             System.out.println("Timer is running");
+            setupNewGame();
         } else System.out.println("Error timer not running");
     }
 

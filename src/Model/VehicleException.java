@@ -1,6 +1,7 @@
 package Model;
 
 public class VehicleException extends RuntimeException {
+
     public VehicleException() {
     }
 
