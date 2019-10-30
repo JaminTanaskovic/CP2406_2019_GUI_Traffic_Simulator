@@ -8,21 +8,8 @@ import java.awt.event.ActionListener;
 
 public class MainFrame extends JPanel implements ActionListener {
 
-    private int height = 500;
-    private int width = 500;
-
-
-    private final GamePane gamePane;
-
-    // creating the frame and panel
-    private JFrame frame = new JFrame("GUI Traffic Simulator");
-
     // Creating the MenuBar and adding components
     private JMenuBar menuBar = new JMenuBar();
-
-    // Creating Menu Headers
-    private JMenu m1 = new JMenu("City Editing");
-    private JMenu m2 = new JMenu("Simulation");
 
     //creating sub menu choices
     private JMenuItem newCity = new JMenuItem("New City");
@@ -35,15 +22,7 @@ public class MainFrame extends JPanel implements ActionListener {
     private JMenuItem runSim = new JMenuItem("Run The Simulator");
     private JMenuItem stopSim = new JMenuItem("Stop The Simulator");
 
-    //Creating the panel at bottom and adding components
-    private JPanel bottomPanel = new JPanel();
-
-    private JLabel modeLabel = new JLabel("Mode", SwingConstants.RIGHT);
-    private JTextField modeLabelStats = new JTextField("Mode stats");
-    private JLabel statusLabel = new JLabel("Status", SwingConstants.RIGHT);
-    private JTextField statusLabelStats = new JTextField("Status stats");
-
-    //Creating the panel at top and adding components
+    //Creating the panel at the side and adding components
     private JPanel editPanel = new JPanel();
 
     private JButton straightRoadButton = new JButton("Straight Road");
@@ -51,18 +30,18 @@ public class MainFrame extends JPanel implements ActionListener {
     private JButton fourWayButton = new JButton("Four Way Road");
     private JButton cancelEditButton = new JButton("Close Edit Selections");
 
-    private JPanel gamePanel = new JPanel();
-
     public MainFrame(GamePane gamePane) {
 //      public MainFrame(Grid grid) {
 
         // Accessing GamePane
-        this.gamePane = gamePane;
         //         this.grid = grid;
 
 
         // Add menu headers to main menu bar
+        // Creating Menu Headers
+        JMenu m1 = new JMenu("City Editing");
         menuBar.add(m1);
+        JMenu m2 = new JMenu("Simulation");
         menuBar.add(m2);
 
         // Add items for menu 1
@@ -78,14 +57,21 @@ public class MainFrame extends JPanel implements ActionListener {
         m2.add(stopSim);
 
         // Add bottom panel
+        //Creating the panel at bottom and adding components
+        JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridLayout(1, 4));
         editPanel.setLayout(new GridLayout(4, 1));
+        JPanel gamePanel = new JPanel();
         gamePanel.setLayout(new GridLayout(30, 30));
 
         // Add labels to bottomPanel
+        JLabel modeLabel = new JLabel("Mode", SwingConstants.RIGHT);
         bottomPanel.add(modeLabel);
+        JTextField modeLabelStats = new JTextField("Mode stats");
         bottomPanel.add(modeLabelStats);
+        JLabel statusLabel = new JLabel("Status", SwingConstants.RIGHT);
         bottomPanel.add(statusLabel);
+        JTextField statusLabelStats = new JTextField("Status stats");
         bottomPanel.add(statusLabelStats);
 
         // set editPanel to be invisible and un focusable
@@ -102,15 +88,19 @@ public class MainFrame extends JPanel implements ActionListener {
         modeLabelStats.setFocusable(false);
         statusLabelStats.setFocusable(false);
 
-        // Set default background colors for menu's and bottompane
+        // Set default background colors for menu's and bottompanel
         bottomPanel.setBackground(Color.cyan);
         menuBar.setBackground(Color.cyan);
         editPanel.setBackground(Color.cyan);
         gamePanel.setBackground(Color.black);
 
-        gamePanel.setSize(height, width);
+        int width = 500;
+        int height = 500;
+        gamePanel.setSize(width, height);
 
         // Adding Components to the frame.
+        // creating the frame and panel
+        JFrame frame = new JFrame("GUI Traffic Simulator");
         frame.add(editPanel, BorderLayout.WEST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
         frame.add(gamePane, BorderLayout.CENTER);
