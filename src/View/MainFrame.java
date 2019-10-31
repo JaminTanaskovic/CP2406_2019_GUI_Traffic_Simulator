@@ -1,6 +1,5 @@
 package View;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +9,8 @@ public class MainFrame extends JPanel implements ActionListener {
 
     // Creating the MenuBar and adding components
     private JMenuBar menuBar = new JMenuBar();
+
+    private JPanel setupSimPanel = new JPanel();
 
     //creating sub menu choices
     private JMenuItem newCity = new JMenuItem("New City");
@@ -30,12 +31,8 @@ public class MainFrame extends JPanel implements ActionListener {
     private JButton fourWayButton = new JButton("Four Way Road");
     private JButton cancelEditButton = new JButton("Close Edit Selections");
 
-    public MainFrame(GamePane gamePane) {
-//      public MainFrame(Grid grid) {
-
-        // Accessing GamePane
-        //         this.grid = grid;
-
+    //    public MainFrame(GamePane gamePane) {
+    public MainFrame() {
 
         // Add menu headers to main menu bar
         // Creating Menu Headers
@@ -61,8 +58,9 @@ public class MainFrame extends JPanel implements ActionListener {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new GridLayout(1, 4));
         editPanel.setLayout(new GridLayout(4, 1));
-        JPanel gamePanel = new JPanel();
-        gamePanel.setLayout(new GridLayout(30, 30));
+        //    setupSimPanel = new JPanel();
+        setupSimPanel.setLayout(new GridLayout(30, 30));
+        
 
         // Add labels to bottomPanel
         JLabel modeLabel = new JLabel("Mode", SwingConstants.RIGHT);
@@ -92,21 +90,15 @@ public class MainFrame extends JPanel implements ActionListener {
         bottomPanel.setBackground(Color.cyan);
         menuBar.setBackground(Color.cyan);
         editPanel.setBackground(Color.cyan);
-        gamePanel.setBackground(Color.black);
-
-        int width = 500;
-        int height = 500;
-        gamePanel.setSize(width, height);
 
         // Adding Components to the frame.
         // creating the frame and panel
         JFrame frame = new JFrame("GUI Traffic Simulator");
         frame.add(editPanel, BorderLayout.WEST);
         frame.add(bottomPanel, BorderLayout.SOUTH);
-        frame.add(gamePane, BorderLayout.CENTER);
+        //       frame.add(gamePane, BorderLayout.CENTER);
         frame.add(menuBar, BorderLayout.NORTH);
-        //       frame.add(grid, BorderLayout.CENTER);
-//        frame.add(gamePanel, BorderLayout.CENTER);
+        frame.add(setupSimPanel, BorderLayout.CENTER);
 
         // Adding action listeners to be handled in controller
         stopSim.addActionListener(this);
@@ -128,12 +120,14 @@ public class MainFrame extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
+    public JPanel getPanel() {
+        return this.setupSimPanel;
+    }
+
     public void turnOnEditPanel() {
 
         editPanel.setVisible(true);
         editPanel.setFocusable(true);
-        //       grid.setVisible(true);
-        //       grid.setFocusable(true);
         menuBar.setVisible(false);
         menuBar.setFocusable(false);
     }
@@ -142,8 +136,6 @@ public class MainFrame extends JPanel implements ActionListener {
 
         editPanel.setVisible(false);
         editPanel.setFocusable(false);
-        //       grid.setVisible(false);
-        //       grid.setFocusable(false);
         menuBar.setVisible(true);
         menuBar.setFocusable(true);
     }

@@ -1,11 +1,11 @@
 package Controller;
 
-import Model.*;
-import View.GamePane;
-import View.Grid;
 import View.MainFrame;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class Controller {
@@ -14,7 +14,9 @@ public class Controller {
     private int vehicleSpawn = 10;
 
     Controller() {
+        MainFrame mainFrame = new MainFrame();
 
+/*
         final int WIDTH = 500;
         final int HEIGHT = 500;
         int speed = 2;
@@ -43,22 +45,42 @@ public class Controller {
         }
 
         GamePane gamePane = new GamePane(WIDTH, HEIGHT, vehicles);
-        MainFrame mainFrame = new MainFrame(gamePane);
-//        Grid grid = new Grid(20,20);
-//        MainFrame mainFrame = new MainFrame(grid);
+        MainFrame mainFrame = new MainFrame();
+*/
 
         // Create a new game panel
         mainFrame.setNewCityMenuListener(e -> {
-
-//            gamePane.setupNewGame();
-//            grid.setVisible(true);
             System.out.println(e.getActionCommand());
         });
 
         // Add to new game panel ( setup city )
         mainFrame.setEditCityMenuListener(e -> {
+            for (int i = 0; i < 900; i++) {
 
-            mainFrame.turnOnEditPanel();
+                final int[] flag = {1}; //  the variable denotes if something has been clicked
+                int buttonIdentifier = (i + 1); // gives each button a number identifier
+
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(20, 20));
+                button.setBackground(Color.white);
+                mainFrame.getPanel().add(button);
+
+                button.addActionListener(new ActionListener() {
+
+                    public void actionPerformed(ActionEvent e) {
+
+                        if (flag[0] == 1) { // when button is pressed the button color goes grey
+                            button.setBackground(Color.gray);
+                            flag[0] = 0;
+                            System.out.println(buttonIdentifier);
+                        } else if (flag[0] == 0) { // when button is pressed the button color goes white again
+                            button.setBackground(Color.white);
+                            System.out.println(buttonIdentifier);
+                            flag[0] = 1;
+                        }
+                    }
+                });
+            }
             System.out.println(e.getActionCommand());
         });
 
@@ -79,8 +101,8 @@ public class Controller {
 
             String input = JOptionPane.showInputDialog("Enter The Time to Update Movement:");
             int updateInput = Integer.parseInt(input);
-            gamePane.setTimerDelay(updateInput);  // set updateInput to change the timer delay value
-            System.out.println(gamePane.getTimerDelay());
+            //           gamePane.setTimerDelay(updateInput);  // set updateInput to change the timer delay value
+            //           System.out.println(gamePane.getTimerDelay());
         });
         // Set how many vehicles will spawn
         mainFrame.setVehicleRateMenuListener(e -> {
@@ -94,14 +116,14 @@ public class Controller {
         // Start the Simulation
         mainFrame.setRunSimMenuListener(e -> {
 
-            gamePane.timerStart();
+            //           gamePane.timerStart();
             System.out.println(e.getActionCommand());
         });
 
         // Stop the Simulation
         mainFrame.setStopSimMenuListener(e -> {
 
-            gamePane.timerStop();
+//            gamePane.timerStop();
             System.out.println(e.getActionCommand());
         });
 
@@ -144,9 +166,6 @@ public class Controller {
     public static void main(String[] args) {
 
         Controller controller = new Controller();
-        int rows = 20;
-        int cols = 20;
 
-        Grid grid = new Grid(rows, cols);
     }
 }
