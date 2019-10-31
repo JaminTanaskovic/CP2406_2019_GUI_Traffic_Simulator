@@ -6,12 +6,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Controller {
 
     private final static Random random = new Random();
     private int vehicleSpawn = 10;
+    ArrayList<String> simList = new ArrayList<String>();
 
     Controller() {
         MainFrame mainFrame = new MainFrame();
@@ -72,8 +79,10 @@ public class Controller {
                         if (flag[0] == 1) { // when button is pressed the button color goes grey
                             button.setBackground(Color.gray);
                             flag[0] = 0;
+                            simList.add(String.valueOf(buttonIdentifier));
                             System.out.println(buttonIdentifier);
                         } else if (flag[0] == 0) { // when button is pressed the button color goes white again
+                            simList.remove(String.valueOf(buttonIdentifier));
                             button.setBackground(Color.white);
                             System.out.println(buttonIdentifier);
                             flag[0] = 1;
@@ -87,13 +96,26 @@ public class Controller {
         // Open saved city
         mainFrame.setOpenCityMenuListener(e -> {
             System.out.println(e.getActionCommand());
-            //open saved map
+            try {
+                String text = Files.readString(Paths.get("data.txt"));
+
+            } catch (IOException eLoad) {
+                JOptionPane.showMessageDialog(mainFrame, eLoad.getLocalizedMessage(), "Load Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         // Saves the created city
         mainFrame.setSaveCityMenuListener(e -> {
             System.out.println(e.getActionCommand());
-            //save map
+            try {
+                PrintWriter writer = new PrintWriter(new FileWriter("data.txt"));
+                for (int i = 0; i < simList.size(); i++) {
+                    writer.print(simList.get(i));
+                }
+                writer.close();
+            } catch (IOException eSave) {
+                JOptionPane.showMessageDialog(mainFrame, eSave.getLocalizedMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         // Set the rate changes are made on the screen
@@ -115,7 +137,9 @@ public class Controller {
 
         // Start the Simulation
         mainFrame.setRunSimMenuListener(e -> {
-
+            for (String string : simList) {
+                System.out.println(string);
+            }
             //           gamePane.timerStart();
             System.out.println(e.getActionCommand());
         });
@@ -128,22 +152,13 @@ public class Controller {
         });
 
         // Add straight road to game panel
-        mainFrame.straightRoadListener(e -> {
-
-            System.out.println(e.getActionCommand());
-        });
+        mainFrame.straightRoadListener(e -> System.out.println(e.getActionCommand()));
 
         // Add TJunction road to game panel
-        mainFrame.tJunctionListener(e -> {
-
-            System.out.println(e.getActionCommand());
-        });
+        mainFrame.tJunctionListener(e -> System.out.println(e.getActionCommand()));
 
         // Add Four Way road to game panel
-        mainFrame.fourWayListener(e -> {
-
-            System.out.println(e.getActionCommand());
-        });
+        mainFrame.fourWayListener((ActionEvent e) -> System.out.println(e.getActionCommand()));
 
         // Close the edit panel
         mainFrame.cancelListener(e -> {

@@ -60,7 +60,7 @@ public class MainFrame extends JPanel implements ActionListener {
         editPanel.setLayout(new GridLayout(4, 1));
         //    setupSimPanel = new JPanel();
         setupSimPanel.setLayout(new GridLayout(30, 30));
-        
+
 
         // Add labels to bottomPanel
         JLabel modeLabel = new JLabel("Mode", SwingConstants.RIGHT);
