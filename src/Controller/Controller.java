@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.*;
+import View.GamePane;
 import View.MainFrame;
 
 import javax.swing.*;
@@ -18,12 +20,13 @@ public class Controller {
 
     private final static Random random = new Random();
     private int vehicleSpawn = 10;
+
     ArrayList<String> simList = new ArrayList<String>();
+    ArrayList<String> tempList = new ArrayList<String>();
 
     Controller() {
-        MainFrame mainFrame = new MainFrame();
 
-/*
+
         final int WIDTH = 500;
         final int HEIGHT = 500;
         int speed = 2;
@@ -51,17 +54,24 @@ public class Controller {
             System.out.println(vehicles[i]);
         }
 
-        GamePane gamePane = new GamePane(WIDTH, HEIGHT, vehicles);
         MainFrame mainFrame = new MainFrame();
-*/
+        GamePane gamePane = new GamePane(500, 500, vehicles);
 
         // Create a new game panel
         mainFrame.setNewCityMenuListener(e -> {
+            mainFrame.getPanel().removeAll();
+            mainFrame.getPanel().revalidate();
+            mainFrame.getPanel().repaint();
+            mainFrame.clickEditButton();
+            tempList.clear();
             System.out.println(e.getActionCommand());
+
         });
 
         // Add to new game panel ( setup city )
         mainFrame.setEditCityMenuListener(e -> {
+
+            tempList.clear();
             for (int i = 0; i < 900; i++) {
 
                 final int[] flag = {1}; //  the variable denotes if something has been clicked
@@ -79,10 +89,10 @@ public class Controller {
                         if (flag[0] == 1) { // when button is pressed the button color goes grey
                             button.setBackground(Color.gray);
                             flag[0] = 0;
-                            simList.add(String.valueOf(buttonIdentifier));
+                            tempList.add(String.valueOf(buttonIdentifier));
                             System.out.println(buttonIdentifier);
                         } else if (flag[0] == 0) { // when button is pressed the button color goes white again
-                            simList.remove(String.valueOf(buttonIdentifier));
+                            tempList.remove(String.valueOf(buttonIdentifier));
                             button.setBackground(Color.white);
                             System.out.println(buttonIdentifier);
                             flag[0] = 1;
@@ -95,9 +105,15 @@ public class Controller {
 
         // Open saved city
         mainFrame.setOpenCityMenuListener(e -> {
+
+            tempList.clear();
+            String input = JOptionPane.showInputDialog("Please enter the save game name: ");
+            String reply = input;
             System.out.println(e.getActionCommand());
             try {
-                String text = Files.readString(Paths.get("data.txt"));
+                String text = Files.readString(Paths.get(reply + ".txt"));
+                System.out.println(text);
+                mainFrame.clickEditButton();
 
             } catch (IOException eLoad) {
                 JOptionPane.showMessageDialog(mainFrame, eLoad.getLocalizedMessage(), "Load Error", JOptionPane.ERROR_MESSAGE);
@@ -106,13 +122,19 @@ public class Controller {
 
         // Saves the created city
         mainFrame.setSaveCityMenuListener(e -> {
+            int tempCount = tempList.size();
+            simList.addAll(tempList);
             System.out.println(e.getActionCommand());
+            String input = JOptionPane.showInputDialog("Save as ( Must have more than four characters ): ");
+            String result = input;
             try {
-                PrintWriter writer = new PrintWriter(new FileWriter("data.txt"));
-                for (int i = 0; i < simList.size(); i++) {
-                    writer.print(simList.get(i));
+                PrintWriter writer = new PrintWriter(new FileWriter(result + ".txt"));
+                for (String s : simList) {
+                    writer.print(s + " ");
                 }
                 writer.close();
+                simList.clear();
+                mainFrame.clickNewButton();
             } catch (IOException eSave) {
                 JOptionPane.showMessageDialog(mainFrame, eSave.getLocalizedMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -121,11 +143,13 @@ public class Controller {
         // Set the rate changes are made on the screen
         mainFrame.setUpdateRateMenuListener(e -> {
 
+            tempList.clear();
             String input = JOptionPane.showInputDialog("Enter The Time to Update Movement:");
             int updateInput = Integer.parseInt(input);
             //           gamePane.setTimerDelay(updateInput);  // set updateInput to change the timer delay value
             //           System.out.println(gamePane.getTimerDelay());
         });
+
         // Set how many vehicles will spawn
         mainFrame.setVehicleRateMenuListener(e -> {
 
@@ -137,9 +161,11 @@ public class Controller {
 
         // Start the Simulation
         mainFrame.setRunSimMenuListener(e -> {
-            for (String string : simList) {
+
+            tempList.clear();
+      /*      for (String string : simList) {
                 System.out.println(string);
-            }
+            }*/
             //           gamePane.timerStart();
             System.out.println(e.getActionCommand());
         });
@@ -147,40 +173,26 @@ public class Controller {
         // Stop the Simulation
         mainFrame.setStopSimMenuListener(e -> {
 
+            tempList.clear();
 //            gamePane.timerStop();
-            System.out.println(e.getActionCommand());
-        });
-
-        // Add straight road to game panel
-        mainFrame.straightRoadListener(e -> System.out.println(e.getActionCommand()));
-
-        // Add TJunction road to game panel
-        mainFrame.tJunctionListener(e -> System.out.println(e.getActionCommand()));
-
-        // Add Four Way road to game panel
-        mainFrame.fourWayListener((ActionEvent e) -> System.out.println(e.getActionCommand()));
-
-        // Close the edit panel
-        mainFrame.cancelListener(e -> {
-
-            mainFrame.turnOffEditPanel();
             System.out.println(e.getActionCommand());
         });
     }
 
     private int getVehicleSpawn() {
 
+        tempList.clear();
         return vehicleSpawn;
     }
 
     private void setVehicleSpawn(int vehicleSpawn) {
 
+        tempList.clear();
         this.vehicleSpawn = vehicleSpawn;
     }
 
     public static void main(String[] args) {
 
         Controller controller = new Controller();
-
     }
 }
