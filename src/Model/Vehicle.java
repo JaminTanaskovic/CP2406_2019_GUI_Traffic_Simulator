@@ -40,6 +40,7 @@ Vehicle extends Shape {
     void move() {
         x += speed * xDir;
         y += speed * yDir;
+
     }
 
     @Override
