@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Road extends Shape {
 
-    private int segments = getWidth();
+    private int segments;
 
     public Road(int x, int y) {
         super(x, y);
@@ -21,8 +21,22 @@ public class Road extends Shape {
 
     }
 
+    public int getSegments() {
+        return segments;
+    }
+
+    public void setSegments(int segments) {
+        this.segments = segments;
+    }
+
+    public void hasConnectingRoad() {
+
+    }
+
     @Override
     public void draw(Graphics g) {
 
+        g.setColor(this.getColor());
+        g.fillRect(x, y, this.getWidth(), this.getHeight());
     }
 }

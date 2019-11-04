@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Bike extends Vehicle {
 
-    public Bike(int x, int y, int xDir, int yDir, int speed) {
-        super(x, y, xDir, yDir, speed);
+    public Bike(int x, int y, int xDir, int yDir) {
+        super(x, y, xDir, yDir);
         setColor(Color.white);
         setWidth(1);
         setHeight(1);

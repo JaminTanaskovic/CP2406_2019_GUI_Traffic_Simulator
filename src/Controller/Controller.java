@@ -28,6 +28,7 @@ public class Controller {
         final int HEIGHT = 500;
         int speed = 2;
 
+        // attempt at sim screen not working
         Vehicle[] vehicles = new Vehicle[vehicleSpawn];
         for (int i = 0; i < vehicles.length; ++i) {
             int x = random.nextInt();
@@ -37,13 +38,13 @@ public class Controller {
 
             switch (VehicleType.random()) {
                 case CAR:
-                    vehicles[i] = new Car(x, y, xDir, yDir, 2);
+                    vehicles[i] = new Car(x, y, xDir, yDir);
                     break;
                 case BIKE:
-                    vehicles[i] = new Bike(x, y, xDir, yDir, 2);
+                    vehicles[i] = new Bike(x, y, xDir, yDir);
                     break;
                 case BUS:
-                    vehicles[i] = new Bus(x, y, xDir, yDir, 2);
+                    vehicles[i] = new Bus(x, y, xDir, yDir);
                     break;
             }
 
@@ -152,8 +153,8 @@ public class Controller {
             String input = JOptionPane.showInputDialog("Enter The Time to Update Movement:");
             int updateInput = Integer.parseInt(input);
             mainFrame.statusLabelStats.setText("Time Rate: " + input);
-            //           gamePane.setTimerDelay(updateInput);  // set updateInput to change the timer delay value
-            //           System.out.println(gamePane.getTimerDelay());
+            gamePane.setTimerDelay(updateInput);  // set updateInput to change the timer delay value
+            System.out.println(gamePane.getTimerDelay());
         });
 
         // Set how many vehicles will spawn
@@ -189,6 +190,13 @@ public class Controller {
         });
     }
 
+    public JButton getButton() {
+        return button;
+    }
+
+    public void setButton(JButton button) {
+        this.button = button;
+    }
 
     private int getVehicleSpawn() {
 

@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class Car extends Vehicle {
 
-    public Car(int x, int y, int xDir, int yDir, int speed) {
-        super(x, y, xDir, yDir, speed);
+    public Car(int x, int y, int xDir, int yDir) {
+        super(x, y, xDir, yDir);
         setColor(Color.magenta);
         setWidth(2);
         setHeight(1);

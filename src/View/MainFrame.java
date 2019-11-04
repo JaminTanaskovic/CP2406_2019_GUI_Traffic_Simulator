@@ -7,14 +7,10 @@ import java.awt.event.ActionListener;
 
 public class MainFrame extends JPanel implements ActionListener {
 
-    public JTextField modeLabelStats = new JTextField("Sim State");
-    public JTextField statusLabelStats = new JTextField("Status stats");
-    private JMenuItem editCity = new JMenuItem("Edit a City");
-    // Setup Panel Initializer
     private JPanel setupSimPanel = new JPanel();
-    //creating sub menu initializer
-    private JMenuItem newCity = new JMenuItem("New City");
 
+    private JMenuItem newCity = new JMenuItem("New City");
+    public JTextField modeLabelStats = new JTextField("Sim State");
     private JMenuItem openCity = new JMenuItem("Open a City");
     private JMenuItem saveCity = new JMenuItem("Save a City");
 
@@ -22,15 +18,18 @@ public class MainFrame extends JPanel implements ActionListener {
     private JMenuItem vehicleRate = new JMenuItem("Set Vehicle Spawn Rate");
     private JMenuItem runSim = new JMenuItem("Run The Simulator");
     private JMenuItem stopSim = new JMenuItem("Stop The Simulator");
+    public JTextField statusLabelStats = new JTextField("Status stats");
+    private JMenuItem editCity = new JMenuItem("Edit a City");
 
 
     public MainFrame() {
 
         // Creating menu lists
         JMenuBar menuBar = new JMenuBar();
+
         JMenu m1 = new JMenu("City Editing");
-        menuBar.add(m1);
         JMenu m2 = new JMenu("Simulation");
+        menuBar.add(m1);
         menuBar.add(m2);
 
         // Add items for menu 1
@@ -47,28 +46,33 @@ public class MainFrame extends JPanel implements ActionListener {
 
         // Grid layouts for bottom and sim panel
         JPanel bottomPanel = new JPanel();
+
         bottomPanel.setLayout(new GridLayout(1, 4));
         setupSimPanel.setLayout(new GridLayout(30, 30));
 
+        // Basics setup for blankPanel
+        JPanel blankPanel = new JPanel();
         JButton blankButton = new JButton("Traffic sim");
+
         blankButton.setBackground(Color.black);
         blankButton.setPreferredSize(new Dimension(500, 500));
-        JPanel blankPanel = new JPanel();
         blankPanel.add(blankButton);
 
         // adding elements to bottomPanel
         JLabel modeLabel = new JLabel("Mode", SwingConstants.RIGHT);
-        bottomPanel.add(modeLabel);
-        bottomPanel.add(modeLabelStats);
         JLabel statusLabel = new JLabel("Status", SwingConstants.RIGHT);
+
         bottomPanel.add(statusLabel);
+        bottomPanel.add(modeLabel);
+
+        bottomPanel.add(modeLabelStats);
         bottomPanel.add(statusLabelStats);
 
         // Set text fields as non focusable so they can be used as display only
         modeLabelStats.setFocusable(false);
         statusLabelStats.setFocusable(false);
 
-        // Set default background colors for menu's and bottomPanel
+        // Set default background colors for menu's and bottomPanel and blankPanel
         bottomPanel.setBackground(Color.cyan);
         menuBar.setBackground(Color.cyan);
         blankPanel.setBackground(Color.black);
@@ -77,6 +81,7 @@ public class MainFrame extends JPanel implements ActionListener {
         // creating the frame and panel
         JFrame frame = new JFrame("GUI Traffic Simulator");
         JPanel gamePane = new JPanel();
+
         frame.add(gamePane, BorderLayout.CENTER);
         frame.add(setupSimPanel, BorderLayout.CENTER);
         //       frame.add(blankPanel, BorderLayout.CENTER);
