@@ -5,12 +5,26 @@ import java.awt.*;
 public class Road extends Shape {
 
     private int segments;
+    private boolean laneA, laneB, isRoad;
 
     public Road(int x, int y) {
         super(x, y);
+        isRoad = true;
         setColor(Color.blue);
         setWidth(12);
         setHeight(2);
+    }
+
+    public boolean isRoad() {
+        return isRoad;
+    }
+
+    public boolean isLaneA() {
+        return laneA;
+    }
+
+    public boolean isLaneB() {
+        return laneB;
     }
 
     public void laneA() {
@@ -29,9 +43,6 @@ public class Road extends Shape {
         this.segments = segments;
     }
 
-    public void hasConnectingRoad() {
-
-    }
     @Override
     public void draw(Graphics g) {
 

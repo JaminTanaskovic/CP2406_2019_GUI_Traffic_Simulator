@@ -4,27 +4,28 @@ import java.awt.*;
 import java.util.Random;
 
 public abstract class Vehicle extends Shape {
-    private int xDir, yDir, speed, segments, frontLgth, backLgth;
+    private int speed, frontLgth, backLgth;
+    private boolean yDir, xDir;
 
-    Vehicle(int x, int y, int xDir, int yDir) {
+    Vehicle(int x, int y, boolean xDir, boolean yDir) {
         super(x, y);
         this.xDir = xDir;
         this.yDir = yDir;
     }
 
-    public int getxDir() {
+    private boolean getxDir() {
         return xDir;
     }
 
-    public void setxDir(int xDir) {
+    private void setxDir(boolean xDir) {
         this.xDir = xDir;
     }
 
-    public int getyDir() {
+    private boolean getyDir() {
         return yDir;
     }
 
-    public void setyDir(int yDir) {
+    private void setyDir(boolean yDir) {
         this.yDir = yDir;
     }
 
@@ -36,15 +37,7 @@ public abstract class Vehicle extends Shape {
         this.speed = speed;
     }
 
-    public int getSegments() {
-        return segments;
-    }
-
-    public void setSegments(int segments) {
-        this.segments = segments;
-    }
-
-    public int getFrontLgth() {
+    private int getFrontLgth() {
         return frontLgth;
     }
 
@@ -60,11 +53,38 @@ public abstract class Vehicle extends Shape {
         this.backLgth = backLgth;
     }
 
-    public boolean checkLight(TrafficLight trafficLight) {
-        if (trafficLight.changeColor() == true) {
-            move();
+    private void move(Road road, TrafficLight trafficLight) {
+        checkTurn(road, trafficLight);
+        if (getxDir()) { // if vehicle is moving forward on x direction
+            if (road.isRoad()) {
+                setX(getX() + speed);
+                road.setSegments(road.getSegments() + speed);
+            }
+        } else { // if vehicle is moving backwards on x direction
+            if (road.isRoad()) {
+                setX(getX() - speed);
+                road.setSegments(road.getSegments() + speed);
+            }
+        }
+        if (getyDir()) { // if vehicle is moving forward on y direction
+            if (road.isRoad()) {
+                setY(getY() + speed);
+                road.setSegments(road.getSegments() + speed);
+            }
+        } else { // if vehicle is moving backwards on y direction
+            if (road.isRoad()) {
+                setY(getY() - speed);
+                road.setSegments(road.getSegments() + speed);
+            }
+        }
+    }
+
+    private boolean checkLight(Road road, TrafficLight trafficLight) {
+        if (trafficLight.changeColor()) {
+            move(road, trafficLight);
             return true;
         } else {
+            move(road, trafficLight);
             // move to end of road segment if no vehicles in the way
             return false;
         }
@@ -73,21 +93,22 @@ public abstract class Vehicle extends Shape {
     private void checkTurn(Road road, TrafficLight trafficLight) {
         Random random = new Random();
         int answer = random.nextInt(3) + 1;
-        if (getFrontLgth() == road.getWidth() && checkLight(trafficLight)) {
-            if (answer == 1) {
-                // turn left
-            } else if (answer == 2) {
-                // go straight
-            } else {
-                // turn right
+        if (getFrontLgth() == road.getWidth() && checkLight(road, trafficLight)) {
+            if (answer == 1) { // turn left
+                if (getxDir()) {
+                    setyDir(true);
+                } else if (getyDir()) {
+                    setxDir(false);
+                }
+            } else if (answer == 2) { // go straight
+            } else { // turn right
+                if (getxDir()) {
+                    setyDir(false);
+                } else if (getyDir()) {
+                    setxDir(true);
+                }
             }
         }
-    }
-
-    void move() {
-        x += speed * xDir;
-        y += speed * yDir;
-
     }
 
     @Override

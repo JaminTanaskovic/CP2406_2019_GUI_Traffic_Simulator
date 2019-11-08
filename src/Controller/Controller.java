@@ -18,7 +18,7 @@ public class Controller {
 
     private final static Random random = new Random();
     private int vehicleSpawn = 10;
-    private JButton button = new JButton();
+    private JButton button;
     private ArrayList<String> simList = new ArrayList<>();
     private ArrayList<String> tempList = new ArrayList<>();
 
@@ -73,6 +73,7 @@ public class Controller {
             tempList.clear();
             for (int i = 0; i < 900; i++) {
 
+                JButton button = new JButton();
                 final int[] flag = {1}; //  the variable denotes if something has been clicked
                 int buttonIdentifier = (i + 1); // gives each button a number identifier
 
