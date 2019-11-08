@@ -32,7 +32,6 @@ public class Road extends Shape {
     public void hasConnectingRoad() {
 
     }
-
     @Override
     public void draw(Graphics g) {
 
