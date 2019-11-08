@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Car extends Vehicle {
 
-    public Car(int x, int y, int xDir, int yDir) {
+    public Car(int x, int y, boolean xDir, boolean yDir) {
         super(x, y, xDir, yDir);
         setColor(Color.magenta);
         setWidth(2);

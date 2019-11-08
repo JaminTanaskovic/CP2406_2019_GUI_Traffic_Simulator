@@ -33,18 +33,18 @@ public class Controller {
         for (int i = 0; i < vehicles.length; ++i) {
             int x = random.nextInt();
             int y = random.nextInt();
-            int xDir = random.nextBoolean() ? -1 : 1;
-            int yDir = random.nextBoolean() ? -1 : 1;
+            boolean xDir;
+            boolean yDir;
 
-            switch (VehicleType.random()) {
+            switch (VehicleType.random()) { //boolean has stopped it working
                 case CAR:
-                    vehicles[i] = new Car(x, y, xDir, yDir);
+                    vehicles[i] = new Car(x, y, false, true); //boolean has stopped it working
                     break;
                 case BIKE:
-                    vehicles[i] = new Bike(x, y, xDir, yDir);
+                    vehicles[i] = new Bike(x, y, true, false); //boolean has stopped it working
                     break;
                 case BUS:
-                    vehicles[i] = new Bus(x, y, xDir, yDir);
+                    vehicles[i] = new Bus(x, y, true, false); //boolean has stopped it working
                     break;
             }
 
@@ -108,7 +108,7 @@ public class Controller {
             tempList.clear();
             String reply = JOptionPane.showInputDialog("Please enter the save game name: ");
             System.out.println(e.getActionCommand());
-            try {
+            try { // attempt to read file if already saved
                 String text = Files.readString(Paths.get(reply + ".txt"));
                 System.out.println(text);
                 ArrayList<String> textArray = new ArrayList<>();
@@ -193,11 +193,11 @@ public class Controller {
 
     public JButton getButton() {
         return button;
-    }
+    } //attempts to access edit games internal buttons
 
     public void setButton(JButton button) {
         this.button = button;
-    }
+    } //attempts to access edit games internal buttons
 
     private int getVehicleSpawn() {
 
